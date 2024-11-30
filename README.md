@@ -15,10 +15,41 @@ Następnie przedstawiona została funkcjonalność wtyczek [OpenRouteService](ht
 w zakresie [routingu](https://mapsplatform.google.com/maps-products/routes/), tworzenia analiz sieciowych i izochron. Wszystkie wtyczki oferują wybór różnych rodzajów transportu przy wyznaczaniu izochrony, jednak tylko <ins>TravelTime</ins> daje możliwość wyboru generowania izochron od transportu publicznego. 
 Niestety wadą tej wtyczki jest [bardzo mała ilość tokenów](https://docs.traveltime.com/qgis/about/reference-manual), którą możemy wykorzystywać do zapytań serwera. *Each API key has a quota of queries that can be done. Currently, for free keys, this is around 10 searches / minute. Once this quota is reached, all subsequent queries fail for the cooldown period*
 
-Podsumowując...
+Podsumowując, narzędzia wbudowane oraz wtyczki są to narzędzia szybko działające oraz bardzo proste w obsłudze. Ogarniczenia jakie dotyczą tych narzędzi to mała liczba zapytań do API i zależność od danych z zewnętrznego serwera oraz ograniczone możliwości zaawansowanych analiz multimodalnych.
+Biorąc pod uwagę zalety oraz wady tych narzędzi znajdują one zastosowanie w prostych analizach oraz przy małym obszarze opracowania.
 
 # OpenTripPlanner + R
 W budowie
+## Pobieranie danych
+Przed przystąpieniem do analiz zostanie omówione w jaki sposób pozyskać dane potrzebne do przeprowadzenia obliczeń.
+
+Potrzebne będą nam dwie podstawowe rzeczy
+1. Dane o rozkładach jazdy przewoźników w formacie [GTFS](https://github.com/google/transit)
+2. Mapa drogowa w formacie [osm.pbf](https://download.geofabrik.de/)
+
+Dane o przewoźnikach możemy pozyskać z dwóch różnych źródeł
+1. [Transitland](https://www.transit.land/)
+2. [Mobility Database](https://mobilitydatabase.org/)
+Ja swoje dane dla łodzi pobrałem z [tej strony](https://www.transit.land/feeds/f-u3jy-lodz)
+
+Kiedy mamy dane dotyczące rozkładów jazdy następnym krokiem będzie pobranie informacji o sieci drogowej OSM z serwera [Geofabrik](https://download.geofabrik.de/). W tej analizie użyłem danych dla [województwa łódzkiego](https://download.geofabrik.de/europe/poland/lodzkie.html)
+
+## Konfiguracja serwera OTP
+Po pobraniu danych przejdziemy do konfiguracji serwera oraz środowiska.
+Pierwszy krok to pobranie pliku aplikacji OTP w formacie .jar w wersji [1.5.0](https://github.com/opentripplanner/OpenTripPlanner/releases/tag/v1.5.0).
+Do uruchomienia tej aplikacji potrzebne będzie nam środowisko [JAVA w wersji 8](https://www.oracle.com/java/technologies/downloads/#java8-windows)
+Następnie potrzebujemy zainstalować język [R](https://cran.rstudio.com/bin/windows/) oraz interfejs [RStudio](https://posit.co/download/rstudio-desktop/)
+
+Kiedy mamy pobrane i zainstalowane wszystkie komponenty przejdzmy do konfiguracji folderu w którym będziemy pracować...
+Do dokończenia
+
+## Skrypty w języku R
+
+## Izochorny
+
+## Czas dojazdu do wielu miejsc
+
+## One-to-many analysis
 
 # Narzędzia symulacyjne VISSIM + TomTom MOVE
 W budowie
