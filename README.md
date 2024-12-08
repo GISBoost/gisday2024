@@ -8,7 +8,7 @@ Prezentacja została podzielona na 3 części i zawiera informacje odnośnie uż
 3. Narzędzia symulacyjne VISSIM + TomTomMOVE
 
 # Narzędzia wbudowane w QGIS + wtyczki
-W pierwszej części prezentacji zostały omówione bazowe funkcje QGIS, takie jak korzystanie z [bufora](https://docs.qgis.org/3.34/en/docs/gentle_gis_introduction/vector_spatial_analysis_buffers.html)
+W pierwszej części prezentacji zostały omówione bazowe funkcje QGIS, takie jak korzystanie z [bufora](https://youtu.be/n2w32iDwDpw?si=88iRhpI_ni4KyV-j&t=508)
 lub polecenia [service area](https://youtu.be/xSHN6FKHApk?si=gvFSLw6LsU4ENThG&t=315) w celu wyznaczenia realnej drogi do przystanku.
 
 Następnie przedstawiona została funkcjonalność wtyczek [OpenRouteService](https://openrouteservice.org/), [Valhalla](https://github.com/valhalla/valhalla) oraz [TravelTime](https://traveltime.com/) 
