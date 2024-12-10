@@ -54,19 +54,22 @@ Po skonfigurowaniu struktury folderu przejdziemy do uruchomienia aplikacji z com
 ```
 java -Xmx4G -jar otp.jar --build C:\Users\Michal\otp_data\graphs\lodz
 ```
-Ta komenda buduje `graph` i zapisuje do pliku `.obj`, przechowywane są tam dane na temat sieci drogowej oraz nałożone trasy środków transportu publicznego
+Ta komenda buduje `graph` i zapisuje do pliku `.obj`, przechowywane są tam dane na temat sieci drogowej oraz nałożone trasy środków transportu publicznego. Plik zostanie odrazu dodany do folderu `lodz`
 
 Następnie wpisujemy komende do uruchomienia serwera.
 ```
 java -Xmx2G -jar otp.jar --router lodz --graphs graphs --server
 ```
-Jako router wskazujemy folder `lodz`, parametr `--graphs` wskazuje w jakim folderze aplikacja ma szukać zapisanego graphu
+Jako router wskazujemy folder `lodz`, parametr `--graphs` wskazuje w jakim folderze aplikacja ma szukać zapisanego graphu. parametr `--server` uruchamia serwer, do którego będzie mogli wysłać zapytanie.
 
 Do dokończenia
 
 ## Skrypty w języku R
 
 ## Izochorny
+```
+
+```
 
 ## Czas dojazdu do wielu miejsc
 
