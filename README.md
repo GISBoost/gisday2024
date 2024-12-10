@@ -41,7 +41,27 @@ Pierwszy krok to pobranie pliku aplikacji OTP w formacie .jar w wersji [1.5.0](h
 Do uruchomienia tej aplikacji potrzebne będzie nam środowisko [JAVA w wersji 8](https://www.oracle.com/java/technologies/downloads/#java8-windows)
 Następnie potrzebujemy zainstalować język [R](https://cran.rstudio.com/bin/windows/) oraz interfejs [RStudio](https://posit.co/download/rstudio-desktop/)
 
-Kiedy mamy pobrane i zainstalowane wszystkie komponenty przejdzmy do konfiguracji folderu w którym będziemy pracować...
+Kiedy mamy pobrane i zainstalowane wszystkie komponenty przejdzmy do konfiguracji folderu w którym będziemy pracować. Powinniśmy stworzyć folder, do którego będziemy mieli szybki dostęp, bez polskich znaków i spacji w nazwie, ponieważ może to spowodować błąd w ścieżce dostępu. Ja swój folder stworzyłem w lokalizacji: `C:\Users\Michal\otp_data`. To będzie nasz folder główny z plikiem `.jar`, w tym folderze głównym tworzymy nowy folder `graphs`, folder nazwany taką nazwą jest rozpoznawany jako tzw. `router`, będzie nam to potrzebne w dalszej części analizy. W folderze `graphs` tworzymy nowy folder w którym będziemy przechowywać plik `gtfs.zip` i `.osm.pbf`. (**Plik z rozkładami jazdy musi zawierać w nazwie GTFS oraz musi mieć rozszerzenie .zip. Plik z mapą osm również musi być w formacie .osm.pbf**) Folder możemy go nazwać od nazwy analizowanej miejscowości np. `Lodz`, w takim wypadku nazwa `Lodz` stanie się nazwą `routera` i będzię można go w ten sposób wywołać. Struktura folderu powinna wyglądać w taki sposób:
+```
+/otp_data
+    otp.jar
+    /graphs
+        /lodz
+        lodz_gtfs.zip
+        lodz.osm.pbf
+```
+Po skonfigurowaniu struktury folderu przejdziemy do uruchomienia aplikacji z command line, potrzebne będą nam do tego 3 podstawowe komendy
+```
+java -Xmx4G -jar otp.jar --build C:\Users\Michal\otp_data\graphs\lodz
+```
+Ta komenda buduje `graph` i zapisuje do pliku `.obj`, przechowywane są tam dane na temat sieci drogowej oraz nałożone trasy środków transportu publicznego
+
+Następnie wpisujemy komende do uruchomienia serwera.
+```
+java -Xmx2G -jar otp.jar --router lodz --graphs graphs --server
+```
+Jako router wskazujemy folder `lodz`, parametr `--graphs` wskazuje w jakim folderze aplikacja ma szukać zapisanego graphu
+
 Do dokończenia
 
 ## Skrypty w języku R
