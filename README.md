@@ -58,19 +58,54 @@ Ta komenda buduje `graph` i zapisuje do pliku `.obj`, przechowywane są tam dane
 
 Następnie wpisujemy komende do uruchomienia serwera.
 ```
-java -Xmx2G -jar otp.jar --router lodz --graphs graphs --server
+java -Xmx4G -jar otp.jar --router lodz --graphs graphs --server
 ```
 Jako router wskazujemy folder `lodz`, parametr `--graphs` wskazuje w jakim folderze aplikacja ma szukać zapisanego graphu. parametr `--server` uruchamia serwer, do którego będzie mogli wysłać zapytanie.
 
-Do dokończenia
+Trzecia komenda potrzebna będzie nam w dalszej części analizy
+```
+java -Xmx4G -jar otp.jar --router lodz --graphs graphs --server
+--analyst
+--pointSets C:\Users\Michal\otp_data\
+```
+parametr `--analyst` rozszerza możliwości aplikacji o dodatkowe analizy, a `--pointSets` pozwala nam dodać punkty w formacie tabeli z roszerzeniem `.csv`, których będziemy mogli później użyć.
+
+Jeżeli udało nam się wszystko zrobić zgodnie z instrukcją na końcu wiersza poleceń powinniśmy dostać komunikat 
+`Grizzly server running`
+
+Będziemy mogli się do niego podłączyć poprzez wpisanie w przeglądarkę `localhost:8080`
+
+Z serwera OTP możemy korzystać z funkcji przeglądania jak i wpisywania zapytań bezpośrednio z poziomu przeglądarki internetowej, jednak jest to sposób wysoce nieefektywny i narażony na możliwość łatwego popełniania błędów w składni zapytania, dlatego do generowania zapytań będziemy używać języka R i RStudio.
 
 ## Skrypty w języku R
 
+<!--Z względu na możliwość dużej automatyzacji oraz prosty syntax języka R bardzo dobrze nadaje się on do analizy danych.-->
+
 ## Izochorny
+Po uruchomieniu RStudio będziemy musieli zainstalować bibliotekę `otpr` by móc jej używać
+```R
+install.packages('otpr') # Instalacja biblioteka otpr
 ```
+Kod poniżej zwróci nam izochorny dojazdu komunikacją miejską w odstępach czasowych 15, 30 i 45minut i zapisze do pliku geojson
+```R
+library("otpr") # Załadowanie biblioteki otpr
 
+
+setwd("C:/Users/Michal/otp_data") # Ustawienie folderu roboczego
+otpcon <- otp_connect() # Połączenie się z API
+my_isochrone <- otp_get_isochrone(otpcon,
+                location = c(51.7474, 19.4518), # Wskazanie punktu początkowego w stopniach
+                fromLocation = FALSE, # Analiza DO punktu początkowego
+                cutoffs = c(900, 1800, 2700), # Ustawienie wielkości izochron 15, 30, 45 min
+                mode = "TRANSIT", # Ustawienie środka transportu
+                date = "11-22-2024",
+                time = "08:30:00",
+                maxWalkDistance = 700) # Maksymalna odlegość piesza z i na przystanek
+write(my_isochrone$response, file = "my_isochrone.geojson") # Zapisanie odpowiedzi serwera do pliku 
 ```
+Mape wynikową można zobaczyć [tutaj](/mapy/isochrone.geojson)
 
+Plik `.geojson` możemy wrzucić również do QGIS'a metodą drag&drop i tam poddać go dalszej analizie
 ## Czas dojazdu do wielu miejsc
 
 ## One-to-many analysis
