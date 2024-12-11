@@ -90,7 +90,6 @@ Kod poniżej zwróci nam izochorny dojazdu komunikacją miejską w odstępach cz
 ```R
 library("otpr") # Załadowanie biblioteki otpr
 
-
 setwd("C:/Users/Michal/otp_data") # Ustawienie folderu roboczego
 otpcon <- otp_connect() # Połączenie się z API
 my_isochrone <- otp_get_isochrone(otpcon,
@@ -103,11 +102,50 @@ my_isochrone <- otp_get_isochrone(otpcon,
                 maxWalkDistance = 700) # Maksymalna odlegość piesza z i na przystanek
 write(my_isochrone$response, file = "my_isochrone.geojson") # Zapisanie odpowiedzi serwera do pliku 
 ```
-Mape wynikową można zobaczyć [tutaj](/mapy/isochrone.geojson)
+Mapa wynikowa wygląda w następujący sposób
+![mapa izochrony](/images/izochorny_autobus.jpg)
+[Mapa](/mapy/isochrone.geojson)
 
 Plik `.geojson` możemy wrzucić również do QGIS'a metodą drag&drop i tam poddać go dalszej analizie
 ## Czas dojazdu do wielu miejsc
 
+```R
+library("otpr")
+
+setwd("C:/Users/Michal/otp_data") # Set working directory
+pop <- read.csv("pop.csv")
+head(pop)
+total <- nrow(pop)
+otpcon <- otp_connect()
+# Begin the loop
+for (i in 1:total) {
+  response <- otp_get_times(otpcon, 
+                            fromPlace = c(pop[i, ]$lat, pop[i, ]$lon), 
+                            toPlace = c(51.7474, 19.4518), 
+                            mode = "TRANSIT", 
+                            detail = TRUE, 
+                            date = "11-22-2024",
+                            time = "08:30:00", 
+                            maxWalkDistance = 700, 
+                            walkReluctance = 5,
+                            minTransferTime = 600)
+  
+  # If response is OK update dataframe
+  if (response$errorId == "OK") {
+    pop[i, "status"] <- response$errorId
+    pop[i, "duration"] <- response$itineraries$duration
+    pop[i, "transittime"] <-response$itineraries$transitTime
+    pop[i, "walktime"] <-response$itineraries$walkTime
+    pop[i, "waitingtime"] <- response$itineraries$waitingTime
+    pop[i, "transfers"] <- response$itineraries$transfers
+  } else {
+    # record error
+    pop[i, "status"] <- response$errorId
+  }
+}
+write.csv(pop, file = "pop_results2.csv")
+```
+![mapa czas dojazdu](/images/czas_przesiadki.jpg)
 ## One-to-many analysis
 
 # Narzędzia symulacyjne VISSIM + TomTom MOVE
