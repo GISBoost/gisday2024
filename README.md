@@ -81,7 +81,7 @@ Z serwera OTP możemy korzystać z funkcji przeglądania jak i wpisywania zapyta
 
 <!--Z względu na możliwość dużej automatyzacji oraz prosty syntax języka R bardzo dobrze nadaje się on do analizy danych.-->
 
-## Izochorny
+### Izochorny
 Po uruchomieniu RStudio będziemy musieli zainstalować bibliotekę `otpr` by móc jej używać
 ```R
 install.packages('otpr') # Instalacja biblioteka otpr
@@ -107,7 +107,7 @@ Mapa wynikowa wygląda w następujący sposób
 [Mapa](/mapy/isochrone.geojson)
 
 Plik `.geojson` możemy wrzucić również do QGIS'a metodą drag&drop i tam poddać go dalszej analizie
-## Czas dojazdu do wielu miejsc
+### Czas dojazdu do wielu miejsc
 
 ```R
 library("otpr")
@@ -146,7 +146,7 @@ for (i in 1:total) {
 write.csv(pop, file = "pop_results2.csv")
 ```
 ![mapa czas dojazdu](/images/czas_przesiadki.jpg)
-## One-to-many analysis
+### One-to-many analysis
 
 # Narzędzia symulacyjne VISSIM + TomTom MOVE
 W budowie
